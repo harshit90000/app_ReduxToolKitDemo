@@ -1,9 +1,13 @@
 import React from 'react'
-import Navigation from './src/Navigation/Navigation'
+import Main from './src/Screens/Main'
+import { Provider, useDispatch } from 'react-redux'
+import { store } from './redux/store'
 
 const App = () => {
   return (
-    <Navigation />
+    <Provider store={store}>
+      <Main />
+    </Provider>
   )
 }
 

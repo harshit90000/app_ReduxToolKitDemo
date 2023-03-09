@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 10,
-        resizeMode: "stretch"
+        resizeMode: "stretch",
         // flexBasis:170,
     },
 
