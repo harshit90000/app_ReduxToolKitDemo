@@ -1,7 +1,8 @@
 import { View, Text, FlatList, Image, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './style'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductToMyCart } from '../../redux/MyCartSlice';
 
 const MyProducts = () => {
 
@@ -120,8 +121,12 @@ const MyProducts = () => {
   //     },
   //   ];
 
-  const myProducts = useSelector(state => state.product)
-  console.log("Added Products", myProducts);
+  const Products = useSelector(state => state.product)
+  const Cart = useSelector(state => state.cart)
+  console.log("Added Products", Products);
+  console.log("Added Products to Cart", Cart);
+
+  const dispatch = useDispatch()
 
   return (
     <SafeAreaView style={styles.headerView}>
@@ -130,7 +135,7 @@ const MyProducts = () => {
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
 
-      <FlatList data={myProducts} renderItem={({ item, index }) => {
+      <FlatList data={Products} renderItem={({ item, index }) => {
         return (
           <View style={styles.FlatListMainView}>
             <Image source={{ uri: item.image }} style={styles.productImage} />
@@ -141,7 +146,7 @@ const MyProducts = () => {
               <Text style={styles.productPriceText}>{item.price + "$"}</Text>
 
               <View style={styles.buttonsView}>
-                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView}>
+                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView} onPress={() => {dispatch(addProductToMyCart(item))}}>
                   <Text style={styles.addToCartText}>ADD TO CART</Text>
                 </TouchableOpacity>) : null}
 

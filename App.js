@@ -1,7 +1,7 @@
 import React from 'react'
 import Main from './src/Screens/Main'
 import { Provider, useDispatch } from 'react-redux'
-import { store } from './redux/store'
+import { store } from './src/redux/store'
 
 const App = () => {
   return (

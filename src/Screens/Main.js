@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import React, { useEffect } from 'react';
 import { Provider, useDispatch, useselector } from 'react-redux';
 import Navigation from '../Navigation/Navigation';
-import { addMyproducts } from '../../redux/MyProductSlice';
+import { addMyproducts } from '../redux/MyProductSlice';
 
 const DATA =
   [
