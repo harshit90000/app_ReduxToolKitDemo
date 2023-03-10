@@ -2,8 +2,9 @@ import { View, Text, FlatList, Image, SafeAreaView, TouchableOpacity } from 'rea
 import React from 'react'
 import styles from './style'
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductToMyCart } from '../../redux/MyCartSlice';
+import { addProductToMyCart, deleteProductFromMyCart, removeProductFromMyCart } from '../../redux/MyCartSlice';
 import { useNavigation } from '@react-navigation/native';
+import { decreaseQuantity, increaseQuantity } from '../../redux/MyProductSlice';
 
 const MyProducts = () => {
 
@@ -128,7 +129,6 @@ const MyProducts = () => {
   console.log("Added Products to Cart", Cart);
 
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
   const getTotal = () => {
@@ -145,36 +145,44 @@ const MyProducts = () => {
       <View style={styles.headerStyle}>
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
-
       <FlatList data={Products} renderItem={({ item, index }) => {
         return (
           <View style={styles.FlatListMainView}>
             <Image source={{ uri: item.image }} style={styles.productImage} />
-
             <View style={styles.itemDetailsView}>
               <Text style={styles.productTitleText}>{item.title.substring(0, 25) + " ..."}</Text>
               <Text style={styles.productBrandText}>{item.brand}</Text>
               <Text style={styles.productPriceText}>{item.price + "$"}</Text>
-
               <View style={styles.buttonsView}>
-                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView} onPress={() => { dispatch(addProductToMyCart(item)) }}>
+                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView} onPress={() => {
+                  dispatch(addProductToMyCart(item))
+                  dispatch(increaseQuantity(item.id))
+                }}>
                   <Text style={styles.addToCartText}>ADD TO CART</Text>
                 </TouchableOpacity>) : null}
-
-                {item.quantity == 0 ? null : (<TouchableOpacity style={styles.quantityView}>
-                  <Text style={styles.addToCartText}>-</Text>
-                </TouchableOpacity>)}
-
-                {item.quantity == 0 ? null : (<Text style={styles.quantityText}>{"0"}</Text>)}
-
                 {item.quantity == 0 ? null : (
-                  <TouchableOpacity style={styles.quantityView}>
+                  <TouchableOpacity style={styles.quantityView} onPress={() => {
+                    if (item.quantity > 1) {
+                      dispatch(removeProductFromMyCart(item));
+                      dispatch(decreaseQuantity(item.id));
+                    }
+                    else {
+                      dispatch(deleteProductFromMyCart(item.id));
+                      dispatch(decreaseQuantity(item.id));
+                    }
+                  }}>
+                    <Text style={styles.addToCartText}>-</Text>
+                  </TouchableOpacity>)}
+                {item.quantity == 0 ? null : (<Text style={styles.quantityText}>{item.quantity}</Text>)}
+                {item.quantity == 0 ? null : (
+                  <TouchableOpacity style={styles.quantityView} onPress={() =>
+                    dispatch(addProductToMyCart(item),
+                      dispatch(increaseQuantity(item.id))
+                    )}>
                     <Text style={styles.addToCartText}>+</Text>
                   </TouchableOpacity>)}
               </View>
-
             </View>
-
           </View>
         )
       }} />
@@ -182,7 +190,7 @@ const MyProducts = () => {
       {Cart.length > 0 ? (<View style={styles.footerView}>
         <View style={styles.footerInsideView}>
           <Text style={styles.addedItemsText}>{"Added Items" + " (" + Cart.length + ") "}</Text>
-          <Text style={styles.addedItemsText}>{"Total: " + getTotal()}</Text>
+          <Text style={styles.totalItemsText}>{"Total: " + getTotal() + "$ "}</Text>
         </View>
 
         <View style={styles.footerInsideView}>
@@ -191,8 +199,6 @@ const MyProducts = () => {
           </TouchableOpacity>
         </View>
       </View>) : null}
-
-
 
     </SafeAreaView>
   )

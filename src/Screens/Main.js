@@ -122,10 +122,10 @@ const DATA =
 const Main = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    DATA.map(item=>{
+    DATA.map(item => {
       dispatch(addMyproducts(item))
     })
-  },[])
+  }, [])
 
   return <Navigation />;
 };
