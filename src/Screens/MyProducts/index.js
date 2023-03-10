@@ -132,16 +132,16 @@ const MyProducts = () => {
   const navigation = useNavigation();
 
   const getTotal = () => {
-     let Total = 0;
-     Cart.map(item => {
+    let Total = 0;
+    Cart.map(item => {
       Total = Total + item.quantity * item.price
-     });
-     return Total;
+    });
+    return Total;
   }
 
   return (
     <SafeAreaView style={styles.headerView}>
-      
+
       <View style={styles.headerStyle}>
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
@@ -157,7 +157,7 @@ const MyProducts = () => {
               <Text style={styles.productPriceText}>{item.price + "$"}</Text>
 
               <View style={styles.buttonsView}>
-                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView} onPress={() => {dispatch(addProductToMyCart(item))}}>
+                {item.quantity == 0 ? (<TouchableOpacity style={styles.addToCartView} onPress={() => { dispatch(addProductToMyCart(item)) }}>
                   <Text style={styles.addToCartText}>ADD TO CART</Text>
                 </TouchableOpacity>) : null}
 
@@ -179,7 +179,7 @@ const MyProducts = () => {
         )
       }} />
 
-      <View style={styles.footerView}>
+      {Cart.length > 0 ? (<View style={styles.footerView}>
         <View style={styles.footerInsideView}>
           <Text style={styles.addedItemsText}>{"Added Items" + " (" + Cart.length + ") "}</Text>
           <Text style={styles.addedItemsText}>{"Total: " + getTotal()}</Text>
@@ -190,7 +190,9 @@ const MyProducts = () => {
             <Text style={styles.viewCartText}>View Cart</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </View>) : null}
+
+
 
     </SafeAreaView>
   )
