@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { darkGrey, lightGrey, solidBlack, solidGreen, solidGrey, solidWhite, solidYellow } from '../../asset/constants/color'
+import { darkGrey, lightGrey, lightOrange, solidBlack, solidGreen, solidWhite, solidYellow } from '../../asset/constants/color'
 
 const styles = StyleSheet.create({
     headerView: {
@@ -107,9 +107,43 @@ const styles = StyleSheet.create({
         fontWeight: "600"
     },
 
+    footerView: {
+        width: "100%",
+        height: 60,
+        backgroundColor: solidWhite,
+        // position: "absolute",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        bottom: 0
+    },
 
+    footerInsideView: {
+        width: "50%",
+        height: "100%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
 
+    addedItemsText: {
+        fontSize: 16,
+        fontWeight: "700",
+        color: solidBlack,
+    },
 
+    viewCartView: {
+        width: "70%",
+        height: 35,
+        backgroundColor: solidYellow,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 8
+    },
+
+    viewCartText: {
+        color: solidBlack,
+        fontSize: 16,
+    },
 
 })
 

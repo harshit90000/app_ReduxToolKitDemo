@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './style'
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToMyCart } from '../../redux/MyCartSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const MyProducts = () => {
 
@@ -126,7 +127,17 @@ const MyProducts = () => {
   console.log("Added Products", Products);
   console.log("Added Products to Cart", Cart);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const navigation = useNavigation();
+
+  const getTotal = () => {
+     let Total = 0;
+     Cart.map(item => {
+      Total = Total + item.quantity * item.price
+     });
+     return Total;
+  }
 
   return (
     <SafeAreaView style={styles.headerView}>
@@ -168,6 +179,18 @@ const MyProducts = () => {
         )
       }} />
 
+      <View style={styles.footerView}>
+        <View style={styles.footerInsideView}>
+          <Text style={styles.addedItemsText}>{"Added Items" + " (" + Cart.length + ") "}</Text>
+          <Text style={styles.addedItemsText}>{"Total: " + getTotal()}</Text>
+        </View>
+
+        <View style={styles.footerInsideView}>
+          <TouchableOpacity style={styles.viewCartView} onPress={() => navigation.navigate("MyCart")}>
+            <Text style={styles.viewCartText}>View Cart</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
     </SafeAreaView>
   )
