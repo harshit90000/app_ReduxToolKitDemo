@@ -8,7 +8,6 @@ import { decreaseQuantity, increaseQuantity } from '../../redux/MyProductSlice'
 const MyCart = () => {
 
   const Cart = useSelector(state => state.cart)
-
   const dispatch = useDispatch();
 
   return (
@@ -17,19 +16,15 @@ const MyCart = () => {
       <View style={styles.headerStyle}>
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
-
       <FlatList showsVerticalScrollIndicator={false} data={Cart} renderItem={({ item, index }) => {
         return (
           <View style={styles.FlatListMainView}>
             <Image source={{ uri: item.image }} style={styles.productImage} />
-
             <View style={styles.itemDetailsView}>
               <Text style={styles.productTitleText}>{item.title.substring(0, 25) + " ..."}</Text>
               <Text style={styles.productBrandText}>{item.brand}</Text>
               <Text style={styles.productPriceText}>{item.price + "$"}</Text>
-
               <View style={styles.buttonsView}>
-
                 {item.quantity == 0 ? null : (
                   <TouchableOpacity style={styles.quantityView} onPress={() => {
                     if (item.quantity > 1) {
@@ -43,9 +38,7 @@ const MyCart = () => {
                   }}>
                     <Text style={styles.addToCartText}>-</Text>
                   </TouchableOpacity>)}
-
                 {item.quantity == 0 ? null : (<Text style={styles.quantityText}>{item.quantity}</Text>)}
-
                 {item.quantity == 0 ? null : (
                   <TouchableOpacity style={styles.quantityView} onPress={() =>
                     dispatch(addProductToMyCart(item),
@@ -54,16 +47,12 @@ const MyCart = () => {
                     <Text style={styles.addToCartText}>+</Text>
                   </TouchableOpacity>)}
               </View>
-
             </View>
-
           </View>
         )
       }} />
-
     </SafeAreaView>
   )
-
 }
 
 export default MyCart 
