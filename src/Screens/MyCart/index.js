@@ -18,7 +18,7 @@ const MyCart = () => {
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
 
-      <FlatList data={Cart} renderItem={({ item, index }) => {
+      <FlatList showsVerticalScrollIndicator={false} data={Cart} renderItem={({ item, index }) => {
         return (
           <View style={styles.FlatListMainView}>
             <Image source={{ uri: item.image }} style={styles.productImage} />

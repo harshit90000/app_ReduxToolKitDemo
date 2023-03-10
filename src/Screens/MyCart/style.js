@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         backgroundColor: solidWhite,
         // elevation: 1
     },
-    
+
     headerText: {
         color: solidBlack,
         fontSize: 17,

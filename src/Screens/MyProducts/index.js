@@ -145,7 +145,7 @@ const MyProducts = () => {
       <View style={styles.headerStyle}>
         <Text style={styles.headerText}>Smartphones & Laptops</Text>
       </View>
-      <FlatList data={Products} renderItem={({ item, index }) => {
+      <FlatList showsVerticalScrollIndicator={false} data={Products} renderItem={({ item, index }) => {
         return (
           <View style={styles.FlatListMainView}>
             <Image source={{ uri: item.image }} style={styles.productImage} />
